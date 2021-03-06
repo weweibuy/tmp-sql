@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Limit.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tmp-sql</a> &gt; <a href="index.source.html" class="el_package">com.weweibuy.temsql.core</a> &gt; <span class="el_source">Limit.java</span></div><h1>Limit.java</h1><pre class="source lang-java linenums">package com.weweibuy.temsql.core;
+
+import lombok.Setter;
+
+import java.util.Optional;
+
+/**
+ * @author durenhao
+ * @date 2021/3/3 17:47
+ **/
+<span class="fc" id="L11">@Setter</span>
+<span class="fc" id="L12">public class Limit {</span>
+
+<span class="fc" id="L14">    public static final Integer DEFAULT_LIMIT_SIZE = 10;</span>
+
+<span class="fc" id="L16">    public static final Long DEFAULT_OFFSET = 0L;</span>
+
+    private Long offset;
+
+    private Integer size;
+
+
+    public static Limit defaultLimit() {
+<span class="fc" id="L24">        return withOffsetAndSize(DEFAULT_OFFSET, DEFAULT_LIMIT_SIZE);</span>
+    }
+
+    public static Limit withSize(Integer size) {
+<span class="nc" id="L28">        return withOffsetAndSize(DEFAULT_OFFSET,size);</span>
+    }
+
+    public static Limit withOffsetAndSize(Long offset, Integer size) {
+<span class="fc" id="L32">        Limit limit = new Limit();</span>
+<span class="fc" id="L33">        limit.setOffset(offset);</span>
+<span class="fc" id="L34">        limit.setSize(size);</span>
+<span class="fc" id="L35">        return limit;</span>
+    }
+
+    public Long offsetOrDefault() {
+<span class="fc" id="L39">        return Optional.ofNullable(offset)</span>
+<span class="fc" id="L40">                .orElse(DEFAULT_OFFSET);</span>
+    }
+
+    public Integer sizeOrDefault() {
+<span class="fc" id="L44">        return Optional.ofNullable(size)</span>
+<span class="fc" id="L45">                .orElse(DEFAULT_LIMIT_SIZE);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

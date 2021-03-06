@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+tmp-sql,com.weweibuy.temsql.support,OrderByCaseBuilder,4,40,0,0,1,11,1,4,1,4
+tmp-sql,com.weweibuy.temsql.support,WhereCaseBuilder,0,26,0,0,0,7,0,3,0,3
+tmp-sql,com.weweibuy.temsql.support,GroupByBuilder,0,32,0,0,0,7,0,3,0,3
+tmp-sql,com.weweibuy.temsql,QueryService,3,81,2,8,1,19,3,4,1,1
+tmp-sql,com.weweibuy.temsql.core,OrderByCase,15,55,5,9,4,16,6,6,2,3
+tmp-sql,com.weweibuy.temsql.core,GroupWrapFunction,0,22,0,2,0,8,0,4,0,3
+tmp-sql,com.weweibuy.temsql.core,Limit,4,48,0,0,1,13,1,8,1,8
+tmp-sql,com.weweibuy.temsql.core,OrderByTypeEum,0,24,0,0,0,3,0,1,0,1
+tmp-sql,com.weweibuy.temsql.core,ComposeComparator,2,36,1,5,1,13,1,4,0,2
+tmp-sql,com.weweibuy.temsql.core,ComposeGroupBy,18,76,1,5,3,17,2,8,1,6

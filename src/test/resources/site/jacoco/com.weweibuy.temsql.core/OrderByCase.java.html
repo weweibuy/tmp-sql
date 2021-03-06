@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderByCase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tmp-sql</a> &gt; <a href="index.source.html" class="el_package">com.weweibuy.temsql.core</a> &gt; <span class="el_source">OrderByCase.java</span></div><h1>OrderByCase.java</h1><pre class="source lang-java linenums">package com.weweibuy.temsql.core;
+
+import java.util.Comparator;
+import java.util.function.Function;
+
+/**
+ * @author durenhao
+ * @date 2021/3/5 11:01
+ **/
+public class OrderByCase&lt;T&gt; implements Comparator&lt;T&gt; {
+
+    private Function&lt;T, Comparable&gt; function;
+
+    private OrderByTypeEum orderByType;
+
+<span class="fc" id="L16">    private OrderByCase(Function&lt;T, Comparable&gt; function, OrderByTypeEum orderByType) {</span>
+<span class="fc" id="L17">        this.function = function;</span>
+<span class="fc" id="L18">        this.orderByType = orderByType;</span>
+<span class="fc" id="L19">    }</span>
+
+    private OrderByCase(Function&lt;T, Comparable&gt; function) {
+<span class="nc" id="L22">        this(function, OrderByTypeEum.ASC);</span>
+<span class="nc" id="L23">    }</span>
+
+    @Override
+    public int compare(T o1, T o2) {
+<span class="fc" id="L27">        Comparable apply1 = function.apply(o1);</span>
+<span class="fc" id="L28">        Comparable apply2 = function.apply(o2);</span>
+<span class="pc bpc" id="L29" title="1 of 4 branches missed.">        if (apply1 == null &amp;&amp; apply2 != null) {</span>
+<span class="fc" id="L30">            return 1;</span>
+        }
+<span class="pc bpc" id="L32" title="3 of 4 branches missed.">        if (apply1 == null &amp;&amp; apply2 == null) {</span>
+<span class="nc" id="L33">            return 0;</span>
+        }
+
+<span class="pc bpc" id="L36" title="1 of 4 branches missed.">        if (apply1 != null &amp;&amp; apply2 == null) {</span>
+<span class="fc" id="L37">            return -1;</span>
+        }
+
+<span class="fc" id="L40">        int i = apply1.compareTo(apply2);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (OrderByTypeEum.DESC.equals(orderByType)) {</span>
+<span class="fc" id="L42">            return -i;</span>
+        }
+<span class="fc" id="L44">        return i;</span>
+    }
+
+
+    public static &lt;T&gt; OrderByCase&lt;T&gt; orderBy(Function&lt;T, Comparable&gt; function) {
+<span class="nc" id="L49">        return new OrderByCase(function, OrderByTypeEum.ASC);</span>
+    }
+
+    public static &lt;T&gt; OrderByCase&lt;T&gt; orderBy(Function&lt;T, Comparable&gt; function, OrderByTypeEum orderByType) {
+<span class="fc" id="L53">        return new OrderByCase(function, orderByType);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

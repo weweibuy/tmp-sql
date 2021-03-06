@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ComposeComparator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tmp-sql</a> &gt; <a href="index.source.html" class="el_package">com.weweibuy.temsql.core</a> &gt; <span class="el_source">ComposeComparator.java</span></div><h1>ComposeComparator.java</h1><pre class="source lang-java linenums">package com.weweibuy.temsql.core;
+
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.Comparator;
+import java.util.List;
+
+/**
+ * @author durenhao
+ * @date 2021/3/4 22:45
+ **/
+public class ComposeComparator&lt;T&gt; implements Comparator&lt;T&gt; {
+
+    private List&lt;OrderByCase&lt;T&gt;&gt; orderByCaseList;
+
+<span class="fc" id="L16">    public ComposeComparator(List&lt;OrderByCase&lt;T&gt;&gt; orderByCaseList) {</span>
+<span class="fc" id="L17">        this.orderByCaseList = orderByCaseList;</span>
+<span class="fc" id="L18">    }</span>
+
+    @Override
+    public int compare(T o1, T o2) {
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if (CollectionUtils.isEmpty(orderByCaseList)) {</span>
+<span class="nc" id="L23">            return 0;</span>
+        }
+<span class="fc" id="L25">        int i = 0;</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        while (i &lt; orderByCaseList.size()) {</span>
+<span class="fc" id="L27">            OrderByCase&lt;T&gt; orderByCase = orderByCaseList.get(i);</span>
+<span class="fc" id="L28">            int v = orderByCase.compare(o1, o2);</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">            if (v != 0) {</span>
+<span class="fc" id="L30">                return v;</span>
+            }
+<span class="fc" id="L32">            i++;</span>
+<span class="fc" id="L33">        }</span>
+<span class="fc" id="L34">        return 0;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>QueryService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tmp-sql</a> &gt; <a href="index.source.html" class="el_package">com.weweibuy.temsql</a> &gt; <span class="el_source">QueryService.java</span></div><h1>QueryService.java</h1><pre class="source lang-java linenums">package com.weweibuy.temsql;
+
+import com.weweibuy.temsql.core.ComposeComparator;
+import com.weweibuy.temsql.core.ComposeGroupBy;
+import com.weweibuy.temsql.core.Limit;
+import com.weweibuy.temsql.core.OrderByCase;
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+/**
+ * @author durenhao
+ * @date 2021/3/3 17:34
+ **/
+<span class="nc" id="L20">public class QueryService {</span>
+
+    public static &lt;T&gt; List&lt;T&gt; query(List&lt;T&gt; data, List&lt;Predicate&lt;T&gt;&gt; where,
+                                    List&lt;OrderByCase&lt;T&gt;&gt; orderBy, List&lt;Function&lt;T, Object&gt;&gt; groupBy, Limit limit) {
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (CollectionUtils.isEmpty(data)) {</span>
+<span class="fc" id="L25">            return Collections.emptyList();</span>
+        }
+
+<span class="fc" id="L28">        Stream&lt;T&gt; stream = data.stream();</span>
+        // 条件
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">        if (CollectionUtils.isNotEmpty(where)) {</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">            for (int i = 0; i &lt; where.size(); i++) {</span>
+<span class="fc" id="L32">                stream = stream.filter(where.get(i));</span>
+            }
+        }
+
+        // 排序
+<span class="fc" id="L37">        ComposeComparator&lt;T&gt; composeComparator = null;</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (CollectionUtils.isNotEmpty(orderBy)) {</span>
+<span class="fc" id="L39">            composeComparator = new ComposeComparator&lt;&gt;(orderBy);</span>
+<span class="fc" id="L40">            stream = stream.sorted(composeComparator);</span>
+        }
+
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (CollectionUtils.isEmpty(groupBy)) {</span>
+<span class="fc" id="L45">            return stream.skip(limit.offsetOrDefault())</span>
+<span class="fc" id="L46">                    .limit(limit.sizeOrDefault())</span>
+<span class="fc" id="L47">                    .collect(Collectors.toList());</span>
+        }
+        // 分组
+<span class="fc" id="L50">        ComposeGroupBy&lt;T&gt; composeGroupBy = new ComposeGroupBy&lt;&gt;(groupBy);</span>
+
+<span class="fc" id="L52">        return stream.collect(composeGroupBy.toCollector(composeComparator))</span>
+<span class="fc" id="L53">                .skip(limit.offsetOrDefault())</span>
+<span class="fc" id="L54">                .limit(limit.sizeOrDefault())</span>
+<span class="fc" id="L55">                .collect(Collectors.toList());</span>
+
+
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
