@@ -57,7 +57,7 @@
                     </execution>
                     <execution>
                         <id>jacoco-site</id>
-                        <phase>install</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>

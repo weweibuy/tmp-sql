@@ -33,20 +33,7 @@ public class QueryServiceTest {
         Assert.assertTrue(CollectionUtils.isEmpty(resultList));
 
 
-        resultList = QueryService.query(userList,
-                WhereCaseBuilder.<User>where(u -> u.getId() > 0L).and(u -> u.getId() < 9L).build(),
-                OrderByCaseBuilder.orderBy(User::getAge, OrderByTypeEum.DESC).and(User::getId).build(),
-                null,
-                Limit.defaultLimit());
-
-        Assert.assertTrue(resultList.get(0).getId() == 6L);
-        // 排序
-        Assert.assertTrue(resultList.get(6).getId() == 5L);
-
-        // 组内 没有年龄排最后
-        Assert.assertTrue(resultList.get(7).getId() == 4L);
-
-
+        // =============================  分组排序 ===========================================
         resultList = QueryService.query(userList,
                 WhereCaseBuilder.<User>where(u -> u.getId() > 0L).and(u -> u.getId() < 9L).build(),
                 OrderByCaseBuilder.orderBy(User::getAge, OrderByTypeEum.DESC).and(User::getId).build(),
@@ -83,6 +70,32 @@ public class QueryServiceTest {
 
         // 无法分组排最后
         Assert.assertTrue(resultList.get(7).getId() == 3L);
+
+
+        // ======================== 不排序 ==================================
+
+        resultList = QueryService.query(userList,
+                WhereCaseBuilder.<User>where(u -> u.getId() > 0L).and(u -> u.getId() < 9L).build(),
+                null,
+                GroupByBuilder.groupBy(User::getDept).andGroupBy(User::getRole).build(),
+                Limit.defaultLimit());
+
+        Assert.assertTrue(resultList.get(0).getId() == 1L);
+
+        // ============================== 不分组 ==========================================
+        resultList = QueryService.query(userList,
+                WhereCaseBuilder.<User>where(u -> u.getId() > 0L).and(u -> u.getId() < 9L).build(),
+                OrderByCaseBuilder.orderBy(User::getAge, OrderByTypeEum.DESC).and(User::getId).build(),
+                null,
+                Limit.defaultLimit());
+
+        Assert.assertTrue(resultList.get(0).getId() == 6L);
+        // 排序
+        Assert.assertTrue(resultList.get(6).getId() == 5L);
+
+        // 组内 没有年龄排最后
+        Assert.assertTrue(resultList.get(7).getId() == 4L);
+
 
 
     }

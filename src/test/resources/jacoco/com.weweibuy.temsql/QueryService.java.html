@@ -35,7 +35,7 @@ import java.util.stream.Stream;
 
         // 排序
 <span class="fc" id="L37">        ComposeComparator&lt;T&gt; composeComparator = null;</span>
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (CollectionUtils.isNotEmpty(orderBy)) {</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (CollectionUtils.isNotEmpty(orderBy)) {</span>
 <span class="fc" id="L39">            composeComparator = new ComposeComparator&lt;&gt;(orderBy);</span>
 <span class="fc" id="L40">            stream = stream.sorted(composeComparator);</span>
         }

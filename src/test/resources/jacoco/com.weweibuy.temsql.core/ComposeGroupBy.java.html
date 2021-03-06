@@ -30,15 +30,15 @@ public class ComposeGroupBy&lt;T&gt; {
 <span class="fc" id="L30">        Collector&lt;T, ?, Stream&lt;T&gt;&gt; collector = null;</span>
 <span class="fc bfc" id="L31" title="All 2 branches covered.">        while (i &gt;= 0) {</span>
 <span class="fc bfc" id="L32" title="All 2 branches covered.">            if (i == size - 1) {</span>
-<span class="pc bpc" id="L33" title="1 of 2 branches missed.">                if (composeComparator != null) {</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">                if (composeComparator != null) {</span>
 
 <span class="fc" id="L35">                    collector = Collectors.collectingAndThen(Collectors.groupingBy(functionList.get(i),</span>
 <span class="fc" id="L36">                            LinkedHashMap::new, toSortedList(composeComparator)),</span>
 <span class="fc" id="L37">                            m -&gt; m.values().stream().flatMap(List::stream));</span>
                 } else {
-<span class="nc" id="L39">                    collector = Collectors.collectingAndThen(Collectors.groupingBy(functionList.get(i),</span>
-<span class="nc" id="L40">                            LinkedHashMap::new, Collectors.toList()),</span>
-<span class="nc" id="L41">                            m -&gt; m.values().stream().flatMap(List::stream));</span>
+<span class="fc" id="L39">                    collector = Collectors.collectingAndThen(Collectors.groupingBy(functionList.get(i),</span>
+<span class="fc" id="L40">                            LinkedHashMap::new, Collectors.toList()),</span>
+<span class="fc" id="L41">                            m -&gt; m.values().stream().flatMap(List::stream));</span>
                 }
             } else {
 <span class="fc" id="L44">                collector = Collectors.collectingAndThen(Collectors.groupingBy(functionList.get(i),</span>
